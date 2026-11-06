@@ -20,6 +20,7 @@
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/dm-sans-latin-400-normal.woff2" crossorigin>
 </head>
 <body>
+  <a class="skip-link" href="#top">Skip to content</a>
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="#top">
@@ -36,13 +37,13 @@
     </div>
   </header>
 
-  <main id="top">
+  <main id="top" tabindex="-1">
     <section class="hero">
       <div class="wrap">
         <div>
           <p class="eyebrow">A hearth for your to-do list</p>
           <h1>Your work, with a little wonder around the edges.</h1>
-          <p class="lead">Jotarium is a to-do and project tool first, and a fantasy creature-collection game second. Every task you finish earns XP, gold and shards, and grows the companions who travel with you. It all runs on your own computer. No account, no telemetry.</p>
+          <p class="lead">Jotarium is a to-do and project tool first, and a fantasy creature-collection game second. Turn finished work into XP, gold and progress for your companions. Earn shards as you level up and reach milestones. It all runs on your own computer. No account, no telemetry.</p>
           <div class="cta-row">
             <a class="btn btn-primary" href="#download">Coming 23 November</a>
             <a class="btn btn-ghost" href="#work">See how it works</a>
@@ -65,7 +66,7 @@
         <div>
           <p class="eyebrow">Real productivity</p>
           <h2>Real work, kept in order</h2>
-          <p>Jotarium starts as a proper project tool. Capture in one keystroke, then organise work the way it actually falls apart and comes back together.</p>
+          <p>Jotarium starts as a proper project tool. Capture tasks quickly, then organise work the way it actually falls apart and comes back together.</p>
           <ul class="feature-list">
             <li><strong>Projects, features, tasks, subtasks.</strong> <span>A fixed hierarchy that stays tidy, with statuses, dates, comments and search.</span></li>
             <li><strong>Today, overdue, someday.</strong> <span>Date groups keep the board honest without turning it into a calendar.</span></li>
@@ -84,11 +85,11 @@
         <div>
           <p class="eyebrow">Humans and agents, together</p>
           <h2>You delegate. You still decide.</h2>
-          <p>Named agents work alongside you through the same command line and MCP server the app itself uses. They capture, update, comment and finish, but approval is yours alone.</p>
+          <p>Named agents work alongside you through the command line and MCP server. They capture, update, comment and finish, but approval is yours alone.</p>
           <ul class="feature-list">
             <li><strong>Scoped tokens.</strong> <span>Each agent gets only the reach you grant: reading, writing items or commenting. Never approvals, never the game.</span></li>
-            <li><strong>What needs you.</strong> <span>Finished agent work queues in Review as a check, a decision or a request to act. Accept it or send it back with a reason.</span></li>
-            <li><strong>Fair pay.</strong> <span>Accepted agent work pays a smaller, daily-capped share of XP, with the agent's name on the record.</span></li>
+            <li><strong>What needs you.</strong> <span>Work that needs your review arrives as a check, a decision or a request to act. Accept it or send it back with a reason.</span></li>
+            <li><strong>Fair pay.</strong> <span>Accepted agent work earns the same XP rewards as your own, with the agent's name on the record.</span></li>
           </ul>
         </div>
       </div>
@@ -107,7 +108,7 @@
           <ul class="feature-list">
             <li><strong>Post and forget.</strong> <span>An idea costs one line and no guilt.</span></li>
             <li><strong>Agents can suggest.</strong> <span>Ideas proposed by your agents wait in their own lane for your eye.</span></li>
-            <li><strong>Plan when ready.</strong> <span>One click turns an idea into real items on the board, or shelve it kindly.</span></li>
+            <li><strong>Plan when ready.</strong> <span>Turn a promising idea into real work on the board, or shelve it for later.</span></li>
           </ul>
         </div>
       </div>
@@ -122,7 +123,7 @@
         <div>
           <p class="eyebrow">Creature collection</p>
           <h2>Work grows the party</h2>
-          <p>Choose a starter companion and it earns a share of everything you finish. Raise it far enough and you choose when it evolves. Each species grows through three stages.</p>
+          <p>Choose a starter companion and it grows as you finish work. Raise it far enough and you choose when it evolves. Each evolution line has three stages.</p>
           <ul class="feature-list">
             <li><strong>33 species, 198 forms.</strong> <span>Eleven evolution lines, each in normal, gilded, umbral, goofy, prismatic and ultimate appearances.</span></li>
             <li><strong>Earned summoning.</strong> <span>Shards come only from play. The Shrine publishes its odds, and a pity rule keeps the rolls honest.</span></li>
@@ -169,11 +170,11 @@
         <div>
           <p class="eyebrow">Progression</p>
           <h2>Work that remembers you</h2>
-          <p>Levels pay shards and gold. Every fifth level unlocks something authored, and milestones become titles and portrait frames you keep.</p>
+          <p>Levels pay shards and gold. Level milestones unlock new places, party slots and frames, while achievements can unlock titles you keep.</p>
           <ul class="feature-list">
             <li><strong>Finishing projects pays.</strong> <span>Complete a project and its earned XP feeds a bonus and a chest, not just a checkmark.</span></li>
-            <li><strong>Honest caps, no grind traps.</strong> <span>Daily earnings ease off rather than pushing you to farm.</span></li>
-            <li><strong>Your name in the ledger.</strong> <span>Every reward is recorded with who did the work and who accepted it.</span></li>
+            <li><strong>Rewards for real progress.</strong> <span>Levels, project bonuses and companion milestones reward the work you finish.</span></li>
+            <li><strong>Your name in the ledger.</strong> <span>Work rewards record who performed the task and any human acceptance.</span></li>
           </ul>
         </div>
       </div>
@@ -184,7 +185,7 @@
         <div>
           <p class="eyebrow">Local-first</p>
           <h2>Your own hearth</h2>
-          <p>Jotarium runs entirely on your own computer. It is free, closed-source software with no account and no telemetry, and your save never leaves the machine unless you carry it yourself.</p>
+          <p>Jotarium runs on your own computer. It is free, closed-source software with no account and no telemetry. Your save lives locally; pair a phone on your Wi-Fi or connect agents when you choose.</p>
           <div class="facts">
             <div class="fact">
               <h3>One file, yours</h3>
@@ -215,12 +216,16 @@
       <div class="wrap">
         <p class="eyebrow">Download</p>
         <h2>Coming 23 November</h2>
-        <p>Jotarium is getting its first public release for Windows and macOS. The buttons light up on launch day; releases, docs and downloads will all live here.</p>
+        <p>Jotarium is getting its first public release for Windows and macOS. Releases, docs and downloads will appear here when the release is ready.</p>
         <div class="buttons">
-          <a class="btn btn-primary" href="#download" aria-disabled="true">Download for Windows</a>
-          <a class="btn btn-primary" href="#download" aria-disabled="true">Download for Mac</a>
+          <button class="btn btn-primary" type="button" disabled>Download for Windows</button>
+          <button class="btn btn-primary" type="button" disabled>Download for Mac</button>
         </div>
         <p class="badge-note">Free. No account needed.</p>
+        <div class="install-notes">
+          <h3>The first release will be unsigned</h3>
+          <p>Your operating system may show a security warning. On Windows, choose <strong>More info</strong>, then <strong>Run anyway</strong>. On Mac, right-click Jotarium and choose <strong>Open</strong> for the first launch. Only continue with a download you trust.</p>
+        </div>
       </div>
     </section>
   </main>
