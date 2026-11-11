@@ -342,6 +342,7 @@ section.alt { background: var(--rail); border-block: 1px solid var(--line); }
 .download .buttons { display: flex; gap: .9rem; justify-content: center; flex-wrap: wrap; margin: 1.6rem 0 .8rem; }
 .badge-note { font-size: .85rem; color: var(--text-muted); }
 .install-notes { max-width: 42rem; margin: 2rem auto 0; text-align: left; }
+.support { max-width: 42rem; margin: 2.5rem auto 0; }
 
 /* Footer */
 
