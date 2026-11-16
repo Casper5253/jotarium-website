@@ -45,7 +45,7 @@
           <h1>Your work, with a little wonder around the edges.</h1>
           <p class="lead">Jotarium is a to-do and project tool first, and a fantasy creature-collection game second. Turn finished work into XP, gold and progress for your companions. Earn shards as you level up and reach milestones. It all runs on your own computer. No account, no telemetry.</p>
           <div class="cta-row">
-            <a class="btn btn-primary" href="#download">Coming 23 November</a>
+            <a class="btn btn-primary" href="#download"><span data-release-cta>Available 27 November</span></a>
             <a class="btn btn-ghost" href="#work">See how it works</a>
           </div>
         </div>
@@ -216,15 +216,33 @@
       </div>
     </section>
 
-    <section id="download" class="download">
+    <section id="download" class="download" data-release="prerelease" data-version="">
       <div class="wrap">
         <p class="eyebrow">Download</p>
-        <h2>Coming 23 November</h2>
-        <p>Jotarium is getting its first public release for Windows and macOS. Releases, docs and downloads will appear here when the release is ready.</p>
-        <div class="buttons">
-          <button class="btn btn-primary" type="button" disabled>Download for Windows</button>
-          <button class="btn btn-primary" type="button" disabled>Download for Mac</button>
+        <!-- release:begin -->
+        <h2>Available 27 November</h2>
+        <p>Jotarium's first public release arrives on 27 November for Windows and macOS. The buttons switch on when the release is live.</p>
+        <div class="download-grid">
+          <article class="dl-card" data-platform="win-x64">
+            <p class="dl-pick" hidden>Recommended for this computer</p>
+            <h3>Windows <span class="dl-arch">x64</span></h3>
+            <p class="dl-note">Available 27 November</p>
+            <a class="btn btn-primary dl-btn" aria-disabled="true" tabindex="-1">Download .exe</a>
+          </article>
+          <article class="dl-card" data-platform="mac-arm64">
+            <p class="dl-pick" hidden>Recommended for this computer</p>
+            <h3>Mac <span class="dl-arch">Apple silicon</span></h3>
+            <p class="dl-note">Available 27 November</p>
+            <a class="btn btn-primary dl-btn" aria-disabled="true" tabindex="-1">Download .dmg</a>
+          </article>
+          <article class="dl-card" data-platform="mac-x64">
+            <p class="dl-pick" hidden>Recommended for this computer</p>
+            <h3>Mac <span class="dl-arch">Intel</span></h3>
+            <p class="dl-note">Available 27 November</p>
+            <a class="btn btn-primary dl-btn" aria-disabled="true" tabindex="-1">Download .dmg</a>
+          </article>
         </div>
+        <!-- release:end -->
         <p class="badge-note">Free to download. No account needed.</p>
         <div class="support">
           <h3>Support Jotarium</h3>
@@ -232,10 +250,6 @@
           <div class="buttons">
             <a class="btn btn-ghost" href="https://ko-fi.com/caspererik" rel="noopener" target="_blank">Support on Ko-fi</a>
           </div>
-        </div>
-        <div class="install-notes">
-          <h3>The first release will be unsigned</h3>
-          <p>Your operating system may show a security warning. On Windows, choose <strong>More info</strong>, then <strong>Run anyway</strong>. On Mac, right-click Jotarium and choose <strong>Open</strong> for the first launch. Only continue with a download you trust.</p>
         </div>
       </div>
     </section>
