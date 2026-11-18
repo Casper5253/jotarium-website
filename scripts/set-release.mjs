@@ -5,8 +5,8 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const INDEX = join(ROOT, 'index.html');
 const RELEASE_BASE = 'https://github.com/Casper5253/jotarium-website/releases/download';
+const DOWNLOAD_PAGE = 'https://jotarium.com/#download';
 const AVAILABLE = '27 November';
 const BEGIN = '        <!-- release:begin -->';
 const END = '        <!-- release:end -->';
@@ -44,18 +44,22 @@ const PLATFORMS = [
   },
 ];
 
+class ReleaseError extends Error {}
+
 function usage() {
   console.log(`Usage:
   node scripts/set-release.mjs <version> <SHA256SUMS path>   switch the page to a release
   node scripts/set-release.mjs --prerelease                  back to the ${AVAILABLE} state
 
-The sums file must sit beside the installers. The script reads each size from disk and
-checks every file against its SHA-256 before it writes the page.`);
+The sums file must sit beside the installers. Before writing anything the script checks
+each local size and SHA-256, downloads every published download URL, and checks its HTTP
+status and SHA-256 against the sums file. A failed download stops the switch.
+
+  --skip-remote-check   tests only: skip the download check`);
 }
 
 function fail(message) {
-  console.error(`set-release: ${message}`);
-  process.exit(1);
+  throw new ReleaseError(message);
 }
 
 function formatSize(bytes) {
@@ -90,6 +94,27 @@ function inspect(dir, sums, version) {
     if (actual !== hash) fail(`${file} does not match its checksum (read ${actual})`);
     return { ...platform, file, hash, size: formatSize(stat.size), url: `${RELEASE_BASE}/v${version}/${file}` };
   });
+}
+
+export async function verifyRemote(assets, fetchImpl = globalThis.fetch) {
+  if (typeof fetchImpl !== 'function') fail('no fetch implementation for the download check');
+  for (const asset of assets) {
+    let response;
+    let bytes;
+    try {
+      response = await fetchImpl(asset.url, { redirect: 'follow' });
+      if (!response.ok) fail(`${asset.url} returned HTTP ${response.status}; the release asset is not downloadable yet`);
+      bytes = Buffer.from(await response.arrayBuffer());
+    } catch (error) {
+      if (error instanceof ReleaseError) throw error;
+      fail(`cannot download ${asset.url}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+    const actual = createHash('sha256').update(bytes).digest('hex');
+    if (actual !== asset.hash) {
+      fail(`${asset.url} does not match its checksum (downloaded ${actual}, expected ${asset.hash})`);
+    }
+    console.log(`checked ${asset.url} (${response.status}, ${formatSize(bytes.length)})`);
+  }
 }
 
 function renderCard(platform, body, download) {
@@ -150,8 +175,8 @@ ${cards}
         <p class="dl-trust">These builds are unsigned. Only continue with a download you trust.</p>`;
 }
 
-function writePage(block, release, version) {
-  let html = readFileSync(INDEX, 'utf8');
+function writePage(indexPath, block, release, version) {
+  let html = readFileSync(indexPath, 'utf8');
   const start = html.indexOf(BEGIN);
   const end = html.indexOf(END);
   if (start === -1 || end === -1 || end < start) fail('release markers not found in index.html');
@@ -160,31 +185,72 @@ function writePage(block, release, version) {
   const cta = release === 'released' ? `Download Jotarium ${version}` : `Available ${AVAILABLE}`;
   if (!/<span data-release-cta>[^<]*<\/span>/.test(html)) fail('release call to action not found in index.html');
   html = html.replace(/(<span data-release-cta>)[^<]*(<\/span>)/, `$1${cta}$2`);
-  writeFileSync(INDEX, html);
+  writeFileSync(indexPath, html);
 }
 
-const args = process.argv.slice(2);
-if (args.length === 0 || args[0] === '--help' || args[0] === '-h') {
-  usage();
-  process.exit(args.length === 0 ? 1 : 0);
-}
-if (args[0] === '--prerelease' || args[0] === '--reset') {
-  writePage(renderPrerelease(), 'prerelease', '');
-  console.log(`Download section set to the ${AVAILABLE} pre-release state.`);
-  process.exit(0);
+function writeVersion(versionPath, version) {
+  let notes = 'The first public release.';
+  try {
+    const current = JSON.parse(readFileSync(versionPath, 'utf8'));
+    if (typeof current.notes === 'string') notes = current.notes;
+  } catch {
+    // A missing or unreadable feed keeps the default note.
+  }
+  const payload = { latest: version, url: DOWNLOAD_PAGE, notes };
+  writeFileSync(versionPath, `${JSON.stringify(payload, null, 2)}\n`);
 }
 
-const [version, sumsPath] = args;
-if (!version || !sumsPath) {
-  usage();
-  process.exit(1);
-}
-if (!/^[0-9A-Za-z][0-9A-Za-z.-]*$/.test(version)) fail(`invalid version: ${version}`);
-const absoluteSums = resolve(sumsPath);
-if (!statSync(absoluteSums, { throwIfNoEntry: false })) fail(`checksum file not found: ${absoluteSums}`);
+export async function main(argv, options = {}) {
+  const root = options.root ?? ROOT;
+  const fetchImpl = options.fetchImpl ?? globalThis.fetch;
+  const indexPath = join(root, 'index.html');
+  const versionPath = join(root, 'version.json');
+  const skipRemote = argv.includes('--skip-remote-check');
+  const args = argv.filter((arg) => arg !== '--skip-remote-check');
 
-const { dir, sums } = readSums(absoluteSums);
-const assets = inspect(dir, sums, version);
-writePage(renderReleased(version, assets), 'released', version);
-console.log(`Download section set to ${version}.`);
-for (const asset of assets) console.log(`${asset.id}: ${asset.size} ${asset.hash} ${asset.url}`);
+  if (args.length === 0) {
+    usage();
+    return 1;
+  }
+  if (args[0] === '--help' || args[0] === '-h') {
+    usage();
+    return 0;
+  }
+  if (args[0] === '--prerelease' || args[0] === '--reset') {
+    writePage(indexPath, renderPrerelease(), 'prerelease', '');
+    console.log(`Download section set to the ${AVAILABLE} pre-release state. version.json is unchanged.`);
+    return 0;
+  }
+
+  const [version, sumsPath] = args;
+  if (!version || !sumsPath) {
+    usage();
+    return 1;
+  }
+  if (!/^[0-9A-Za-z][0-9A-Za-z.-]*$/.test(version)) fail(`invalid version: ${version}`);
+  if (!/^\d+\.\d+\.\d+$/.test(version)) fail(`version.json needs a MAJOR.MINOR.PATCH version, got ${version}`);
+  const absoluteSums = resolve(sumsPath);
+  if (!statSync(absoluteSums, { throwIfNoEntry: false })) fail(`checksum file not found: ${absoluteSums}`);
+
+  const { dir, sums } = readSums(absoluteSums);
+  const assets = inspect(dir, sums, version);
+  if (!skipRemote) await verifyRemote(assets, fetchImpl);
+
+  writePage(indexPath, renderReleased(version, assets), 'released', version);
+  writeVersion(versionPath, version);
+  console.log(`Download section set to ${version}.`);
+  for (const asset of assets) console.log(`${asset.id}: ${asset.size} ${asset.hash} ${asset.url}`);
+  return 0;
+}
+
+const isEntry = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (isEntry) {
+  main(process.argv.slice(2))
+    .then((code) => {
+      if (code) process.exitCode = code;
+    })
+    .catch((error) => {
+      console.error(`set-release: ${error instanceof ReleaseError ? error.message : error.stack ?? error}`);
+      process.exitCode = 1;
+    });
+}

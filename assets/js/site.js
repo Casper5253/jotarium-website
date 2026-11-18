@@ -45,21 +45,23 @@
       });
     }
 
-    function fallback() {
-      if (/Windows/i.test(navigator.userAgent)) return 'win-x64';
+    function choosePlatform(data, values) {
+      if (!data || !values) return null;
+      if (data.platform === 'Windows') return values.architecture === 'x86' ? 'win-x64' : null;
+      if (data.platform === 'macOS') {
+        if (values.architecture === 'x86') return 'mac-x64';
+        if (values.architecture === 'arm') return 'mac-arm64';
+      }
       return null;
     }
 
     var data = navigator.userAgentData;
     if (data && data.getHighEntropyValues) {
       data.getHighEntropyValues(['architecture']).then(function (values) {
-        if (data.platform === 'Windows') apply('win-x64');
-        else if (data.platform === 'macOS') apply(values.architecture === 'x86' ? 'mac-x64' : 'mac-arm64');
+        apply(choosePlatform(data, values));
       }).catch(function () {
-        apply(fallback());
+        apply(null);
       });
-    } else {
-      apply(fallback());
     }
   }
 

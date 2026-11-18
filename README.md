@@ -4,10 +4,14 @@ Static landing page for [Jotarium](https://jotarium.com), served by GitHub Pages
 
 ## Release day
 
-The download section comes from `scripts/set-release.mjs`. Put the installers and their `SHA256SUMS.txt` in one folder, then run:
+1. Publish the three installers and `SHA256SUMS.txt` to the GitHub release.
+2. Put the same files and sums in one folder, then run `node scripts/set-release.mjs 1.0.0 <folder>/SHA256SUMS.txt`.
+3. The script checks each local hash, downloads every download URL it is about to link, and checks its HTTP status and SHA-256 against the sums. A failure stops the switch and writes nothing.
+4. On success the script writes `index.html` and `version.json` together. Commit both in one change.
+5. `node scripts/set-release.mjs --prerelease` returns the page to 27 November and leaves `version.json` alone.
 
-	node scripts/set-release.mjs 1.0.0 ../release-assets/1.0.0-rc/SHA256SUMS.txt
+`--skip-remote-check` exists for offline tests only. Never use it for a real switch.
 
-The script reads each file size from disk, checks every installer against its SHA-256, and writes the version, sizes, checksums and GitHub release links into `index.html`. To go back to the 27 November state:
+## Tests
 
-	node scripts/set-release.mjs --prerelease
+	node --test tests/set-release.test.mjs
