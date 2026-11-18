@@ -5,6 +5,35 @@
   if (cards.length) recommendPlatform(cards);
 
   function recommendPlatform(cards) {
+    var heroButton = document.querySelector('.hero .btn-primary');
+
+    function heroMain() {
+      var main = heroButton.parentNode;
+      if (main.classList.contains('cta-main')) return main;
+      main = document.createElement('div');
+      main.className = 'cta-main';
+      heroButton.parentNode.insertBefore(main, heroButton);
+      main.appendChild(heroButton);
+      var size = document.createElement('p');
+      size.className = 'cta-size';
+      main.appendChild(size);
+      var more = document.createElement('a');
+      more.className = 'cta-more';
+      more.href = '#download';
+      more.textContent = 'Other platforms and checksums';
+      main.appendChild(more);
+      return main;
+    }
+
+    function upgradeHero(card) {
+      if (!heroButton || !card.dataset.downloadUrl) return;
+      var main = heroMain();
+      heroButton.href = card.dataset.downloadUrl;
+      var label = heroButton.querySelector('[data-release-cta]');
+      if (label) label.textContent = card.dataset.downloadLabel;
+      main.querySelector('.cta-size').textContent = card.dataset.downloadSize;
+    }
+
     function apply(platform) {
       if (!platform) return;
       cards.forEach(function (card) {
@@ -12,6 +41,7 @@
         card.classList.add('is-recommended');
         var pick = card.querySelector('.dl-pick');
         if (pick) pick.hidden = false;
+        upgradeHero(card);
       });
     }
 

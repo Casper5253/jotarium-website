@@ -18,6 +18,7 @@ const PLATFORMS = [
     name: 'Windows',
     arch: 'x64',
     button: 'Download .exe',
+    label: 'Download for Windows',
     checkLabel: 'Check in PowerShell',
     command: (file) => `Get-FileHash "$HOME\\Downloads\\${file}" -Algorithm SHA256`,
   },
@@ -27,6 +28,7 @@ const PLATFORMS = [
     name: 'Mac',
     arch: 'Apple silicon',
     button: 'Download .dmg',
+    label: 'Download for Mac (Apple silicon)',
     checkLabel: 'Check in Terminal',
     command: (file) => `shasum -a 256 ~/Downloads/${file}`,
   },
@@ -36,6 +38,7 @@ const PLATFORMS = [
     name: 'Mac',
     arch: 'Intel',
     button: 'Download .dmg',
+    label: 'Download for Mac (Intel)',
     checkLabel: 'Check in Terminal',
     command: (file) => `shasum -a 256 ~/Downloads/${file}`,
   },
@@ -89,8 +92,11 @@ function inspect(dir, sums, version) {
   });
 }
 
-function renderCard(platform, body) {
-  return `          <article class="dl-card" data-platform="${platform.id}">
+function renderCard(platform, body, download) {
+  const attrs = download
+    ? ` data-download-url="${download.url}" data-download-size="${download.size}" data-download-label="${platform.label}"`
+    : '';
+  return `          <article class="dl-card" data-platform="${platform.id}"${attrs}>
             <p class="dl-pick" hidden>Recommended for this computer</p>
             <h3>${platform.name} <span class="dl-arch">${platform.arch}</span></h3>
 ${body}
@@ -115,7 +121,7 @@ function renderReleased(version, assets) {
               <dt>Size</dt><dd>${asset.size}</dd>
               <dt>SHA-256</dt><dd><code>${asset.hash}</code></dd>
             </dl>
-            <p class="dl-check">${asset.checkLabel} <code>${asset.command(asset.file)}</code></p>`)).join('\n');
+            <p class="dl-check">${asset.checkLabel} <code>${asset.command(asset.file)}</code></p>`, asset)).join('\n');
   return `        <h2>Download Jotarium ${version}</h2>
         <p>Free to download and play. Choose the build for your computer.</p>
         <div class="download-grid">
