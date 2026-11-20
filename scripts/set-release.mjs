@@ -129,7 +129,7 @@ ${body}
 }
 
 function renderPrerelease() {
-  const cards = PLATFORMS.map((platform) => renderCard(platform, `            <p class="dl-note">Available ${AVAILABLE}</p>
+  const cards = PLATFORMS.map((platform) => renderCard(platform, `            <p class="dl-note">Available ${AVAILABLE}${platform.id === 'win-x64' ? '' : '. Needs macOS 15 or later.'}</p>
             <a class="btn btn-primary dl-btn" aria-disabled="true" tabindex="-1">${platform.button}</a>`)).join('\n');
   return `        <h2>Available ${AVAILABLE}</h2>
         <p>Jotarium's first public release arrives on ${AVAILABLE} for Windows and macOS. The buttons switch on when the release is live.</p>
@@ -152,7 +152,7 @@ function renderReleased(version, assets) {
         <div class="download-grid">
 ${cards}
         </div>
-        <p class="dl-mac-hint">Which Mac? Open the Apple menu and choose About This Mac. An Apple M-series chip means Apple silicon. No Chip row means Intel.</p>
+        <p class="dl-mac-hint">Which Mac? Open the Apple menu and choose About This Mac. An Apple M-series chip means Apple silicon. No Chip row means Intel. The Mac build needs macOS 15 (Sequoia) or later.</p>
         <div class="install-steps">
           <article>
             <h3>On Windows</h3>
