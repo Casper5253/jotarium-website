@@ -80,7 +80,14 @@ test('released mode checks every published URL, then writes the page and version
     assert.match(verify[0], /<dt>SHA-256<\/dt><dd><code>[0-9a-f]{64}<\/code><\/dd>/);
     assert.ok(verify[0].includes(`<dt>SHA-256</dt><dd><code>${createHash('sha256').update(ws.bodies.get(file)).digest('hex')}</code></dd>`));
     assert.ok(verify[0].includes(`<p class="dl-check">${checkLabel} <code>${command}</code></p>`));
+    assert.ok(verify[0].includes(`href="https://www.virustotal.com/gui/file/${createHash('sha256').update(ws.bodies.get(file)).digest('hex')}"`), 'scan link uses the file fingerprint');
   });
+
+  const why = html.match(/<div class="dl-why">[\s\S]*?<\/div>/)?.[0] ?? '';
+  assert.match(why, /<h3>Why your computer warns you<\/h3>/);
+  assert.match(why, /doesn't mean anything was found in the file/);
+  assert.ok(html.indexOf('class="dl-why"') < html.indexOf('class="install-steps"'), 'the explanation comes before the steps');
+  assert.doesNotMatch(html, /Only continue with a download you trust/);
 
   const version = JSON.parse(read(ws.root, 'version.json'));
   assert.deepEqual(version, { latest: VERSION, url: 'https://jotarium.com/#download', notes });

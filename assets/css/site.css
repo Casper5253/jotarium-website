@@ -543,3 +543,7 @@ html.js .reveal.in { opacity: 1; transform: none; }
   .guide-layout { grid-template-columns: 1fr; }
   .toc { position: static; }
 }
+
+.dl-why { max-width: 44rem; margin: 2rem auto 1.25rem; text-align: left; }
+.dl-why h3 { margin: 0 0 .5rem; }
+.dl-why p { margin: 0 0 .6rem; color: var(--text-muted); }

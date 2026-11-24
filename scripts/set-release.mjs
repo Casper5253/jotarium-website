@@ -149,6 +149,7 @@ function renderReleased(version, assets) {
                 <dt>SHA-256</dt><dd><code>${asset.hash}</code></dd>
               </dl>
               <p class="dl-check">${asset.checkLabel} <code>${asset.command(asset.file)}</code></p>
+              <p class="dl-scan"><a href="https://www.virustotal.com/gui/file/${asset.hash}" rel="noopener">See the independent virus scan on VirusTotal</a></p>
             </details>`, asset)).join('\n');
   return `        <h2>Download Jotarium ${version}</h2>
         <p>Free to download and play. Choose the build for your computer.</p>
@@ -156,6 +157,11 @@ function renderReleased(version, assets) {
 ${cards}
         </div>
         <p class="dl-mac-hint">Which Mac? Open the Apple menu and choose About This Mac. An Apple M-series chip means Apple silicon. No Chip row means Intel. The Mac build needs macOS 15 (Sequoia) or later.</p>
+        <div class="dl-why">
+          <h3>Why your computer warns you</h3>
+          <p>Windows and macOS warn about any app whose maker hasn't bought a code-signing certificate. Jotarium is made by one person and 1.0 isn't signed, so you'll see a warning the first time you open it. It means your computer doesn't recognise the publisher. It doesn't mean anything was found in the file.</p>
+          <p>What you can check yourself: the download comes straight from Jotarium's GitHub release page, and each file has a fingerprint and an independent virus scan from VirusTotal under <strong>Check the download</strong>. Jotarium runs entirely on your computer, with no account and no telemetry. The only thing it fetches is a small file once a day to tell you when a new version is out.</p>
+        </div>
         <div class="install-steps">
           <article>
             <h3>On Windows</h3>
@@ -170,12 +176,11 @@ ${cards}
             <ol>
               <li>Open the .dmg and drag Jotarium to Applications.</li>
               <li>Open Jotarium once. macOS blocks it, so choose <strong>Done</strong>.</li>
-              <li>Open <strong>System Settings</strong>, then <strong>Privacy and Security</strong>. Under Security, choose <strong>Open Anyway</strong> for Jotarium, then <strong>Open</strong>.</li>
+              <li>Open <strong>System Settings</strong>, then <strong>Privacy and Security</strong>. Scroll down to Security and choose <strong>Open Anyway</strong> for Jotarium, then <strong>Open</strong>.</li>
             </ol>
           </article>
         </div>
-        <p class="dl-upgrade">Upgrading keeps your save. Backups are automatic.</p>
-        <p class="dl-trust">These builds are unsigned. Only continue with a download you trust.</p>`;
+        <p class="dl-upgrade">Upgrading keeps your save. Backups are automatic.</p>`;
 }
 
 function writePage(indexPath, block, release, version) {

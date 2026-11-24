@@ -251,6 +251,7 @@
                 <dt>SHA-256</dt><dd><code>ee94c4c02b3d0558e4ae9edb48b8d8cfbf6a02299551ba78de49c40a14b0f676</code></dd>
               </dl>
               <p class="dl-check">Check in PowerShell <code>Get-FileHash "$HOME\Downloads\Jotarium-1.0.0-win-x64.exe" -Algorithm SHA256</code></p>
+              <p class="dl-scan"><a href="https://www.virustotal.com/gui/file/ee94c4c02b3d0558e4ae9edb48b8d8cfbf6a02299551ba78de49c40a14b0f676" rel="noopener">See the independent virus scan on VirusTotal</a></p>
             </details>
           </article>
           <article class="dl-card" data-platform="mac-arm64" data-download-url="https://github.com/Casper5253/jotarium-website/releases/download/v1.0.0/Jotarium-1.0.0-mac-arm64.dmg" data-download-size="123.5 MB" data-download-label="Download for Mac (Apple silicon)">
@@ -266,6 +267,7 @@
                 <dt>SHA-256</dt><dd><code>8685be1f5743f60d349cbe14ed0b8516c8b4011467466189171c130da0c8908c</code></dd>
               </dl>
               <p class="dl-check">Check in Terminal <code>shasum -a 256 ~/Downloads/Jotarium-1.0.0-mac-arm64.dmg</code></p>
+              <p class="dl-scan"><a href="https://www.virustotal.com/gui/file/8685be1f5743f60d349cbe14ed0b8516c8b4011467466189171c130da0c8908c" rel="noopener">See the independent virus scan on VirusTotal</a></p>
             </details>
           </article>
           <article class="dl-card" data-platform="mac-x64" data-download-url="https://github.com/Casper5253/jotarium-website/releases/download/v1.0.0/Jotarium-1.0.0-mac-x64.dmg" data-download-size="124.2 MB" data-download-label="Download for Mac (Intel)">
@@ -281,10 +283,16 @@
                 <dt>SHA-256</dt><dd><code>a2026b70f8730639f31b54fb80bbd72a5d52e2d799767ff1a680db177d6ecac0</code></dd>
               </dl>
               <p class="dl-check">Check in Terminal <code>shasum -a 256 ~/Downloads/Jotarium-1.0.0-mac-x64.dmg</code></p>
+              <p class="dl-scan"><a href="https://www.virustotal.com/gui/file/a2026b70f8730639f31b54fb80bbd72a5d52e2d799767ff1a680db177d6ecac0" rel="noopener">See the independent virus scan on VirusTotal</a></p>
             </details>
           </article>
         </div>
         <p class="dl-mac-hint">Which Mac? Open the Apple menu and choose About This Mac. An Apple M-series chip means Apple silicon. No Chip row means Intel. The Mac build needs macOS 15 (Sequoia) or later.</p>
+        <div class="dl-why">
+          <h3>Why your computer warns you</h3>
+          <p>Windows and macOS warn about any app whose maker hasn't bought a code-signing certificate. Jotarium is made by one person and 1.0 isn't signed, so you'll see a warning the first time you open it. It means your computer doesn't recognise the publisher. It doesn't mean anything was found in the file.</p>
+          <p>What you can check yourself: the download comes straight from Jotarium's GitHub release page, and each file has a fingerprint and an independent virus scan from VirusTotal under <strong>Check the download</strong>. Jotarium runs entirely on your computer, with no account and no telemetry. The only thing it fetches is a small file once a day to tell you when a new version is out.</p>
+        </div>
         <div class="install-steps">
           <article>
             <h3>On Windows</h3>
@@ -299,12 +307,11 @@
             <ol>
               <li>Open the .dmg and drag Jotarium to Applications.</li>
               <li>Open Jotarium once. macOS blocks it, so choose <strong>Done</strong>.</li>
-              <li>Open <strong>System Settings</strong>, then <strong>Privacy and Security</strong>. Under Security, choose <strong>Open Anyway</strong> for Jotarium, then <strong>Open</strong>.</li>
+              <li>Open <strong>System Settings</strong>, then <strong>Privacy and Security</strong>. Scroll down to Security and choose <strong>Open Anyway</strong> for Jotarium, then <strong>Open</strong>.</li>
             </ol>
           </article>
         </div>
         <p class="dl-upgrade">Upgrading keeps your save. Backups are automatic.</p>
-        <p class="dl-trust">These builds are unsigned. Only continue with a download you trust.</p>
         <!-- release:end -->
         <p class="badge-note">Free to download. No account needed. <a href="guide/">Getting started guide</a></p>
         <div class="support">
