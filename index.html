@@ -45,7 +45,7 @@
           <h1>Your work, with a little wonder around the edges.</h1>
           <p class="lead">Jotarium is a to-do and project tool first, and a fantasy creature-collection game second. Turn finished work into XP, gold and progress for your companions. Earn shards as you level up and reach milestones. It all runs on your own computer. No account, no telemetry.</p>
           <div class="cta-row">
-            <a class="btn btn-primary" href="#download"><span data-release-cta>Available 27 November</span></a>
+            <a class="btn btn-primary" href="#download"><span data-release-cta>Download Jotarium 1.0.0</span></a>
             <a class="btn btn-ghost" href="#work">See how it works</a>
           </div>
         </div>
@@ -231,32 +231,71 @@
       </div>
     </section>
 
-    <section id="download" class="download" data-release="prerelease" data-version="">
+    <section id="download" class="download" data-release="released" data-version="1.0.0">
       <div class="wrap">
         <p class="eyebrow">Download</p>
         <!-- release:begin -->
-        <h2>Available 27 November</h2>
-        <p>Jotarium's first public release arrives on 27 November for Windows and macOS. The buttons switch on when the release is live.</p>
+        <h2>Download Jotarium 1.0.0</h2>
+        <p>Free to download and play. Choose the build for your computer.</p>
         <div class="download-grid">
-          <article class="dl-card" data-platform="win-x64">
+          <article class="dl-card" data-platform="win-x64" data-download-url="https://github.com/Casper5253/jotarium-website/releases/download/v1.0.0/Jotarium-1.0.0-win-x64.exe" data-download-size="86.6 MB" data-download-label="Download for Windows">
             <p class="dl-pick" hidden>Recommended for this computer</p>
             <h3>Windows <span class="dl-arch">x64</span></h3>
-            <p class="dl-note">Available 27 November</p>
-            <a class="btn btn-primary dl-btn" aria-disabled="true" tabindex="-1">Download .exe</a>
+            <p class="dl-file">Jotarium-1.0.0-win-x64.exe</p>
+            <a class="btn btn-primary dl-btn" href="https://github.com/Casper5253/jotarium-website/releases/download/v1.0.0/Jotarium-1.0.0-win-x64.exe">Download .exe</a>
+            <dl class="dl-facts">
+              <dt>Version</dt><dd>1.0.0</dd>
+              <dt>Size</dt><dd>86.6 MB</dd>
+              <dt>SHA-256</dt><dd><code>ee94c4c02b3d0558e4ae9edb48b8d8cfbf6a02299551ba78de49c40a14b0f676</code></dd>
+            </dl>
+            <p class="dl-check">Check in PowerShell <code>Get-FileHash "$HOME\Downloads\Jotarium-1.0.0-win-x64.exe" -Algorithm SHA256</code></p>
           </article>
-          <article class="dl-card" data-platform="mac-arm64">
+          <article class="dl-card" data-platform="mac-arm64" data-download-url="https://github.com/Casper5253/jotarium-website/releases/download/v1.0.0/Jotarium-1.0.0-mac-arm64.dmg" data-download-size="123.5 MB" data-download-label="Download for Mac (Apple silicon)">
             <p class="dl-pick" hidden>Recommended for this computer</p>
             <h3>Mac <span class="dl-arch">Apple silicon</span></h3>
-            <p class="dl-note">Available 27 November. Needs macOS 15 or later.</p>
-            <a class="btn btn-primary dl-btn" aria-disabled="true" tabindex="-1">Download .dmg</a>
+            <p class="dl-file">Jotarium-1.0.0-mac-arm64.dmg</p>
+            <a class="btn btn-primary dl-btn" href="https://github.com/Casper5253/jotarium-website/releases/download/v1.0.0/Jotarium-1.0.0-mac-arm64.dmg">Download .dmg</a>
+            <dl class="dl-facts">
+              <dt>Version</dt><dd>1.0.0</dd>
+              <dt>Size</dt><dd>123.5 MB</dd>
+              <dt>SHA-256</dt><dd><code>8685be1f5743f60d349cbe14ed0b8516c8b4011467466189171c130da0c8908c</code></dd>
+            </dl>
+            <p class="dl-check">Check in Terminal <code>shasum -a 256 ~/Downloads/Jotarium-1.0.0-mac-arm64.dmg</code></p>
           </article>
-          <article class="dl-card" data-platform="mac-x64">
+          <article class="dl-card" data-platform="mac-x64" data-download-url="https://github.com/Casper5253/jotarium-website/releases/download/v1.0.0/Jotarium-1.0.0-mac-x64.dmg" data-download-size="124.2 MB" data-download-label="Download for Mac (Intel)">
             <p class="dl-pick" hidden>Recommended for this computer</p>
             <h3>Mac <span class="dl-arch">Intel</span></h3>
-            <p class="dl-note">Available 27 November. Needs macOS 15 or later.</p>
-            <a class="btn btn-primary dl-btn" aria-disabled="true" tabindex="-1">Download .dmg</a>
+            <p class="dl-file">Jotarium-1.0.0-mac-x64.dmg</p>
+            <a class="btn btn-primary dl-btn" href="https://github.com/Casper5253/jotarium-website/releases/download/v1.0.0/Jotarium-1.0.0-mac-x64.dmg">Download .dmg</a>
+            <dl class="dl-facts">
+              <dt>Version</dt><dd>1.0.0</dd>
+              <dt>Size</dt><dd>124.2 MB</dd>
+              <dt>SHA-256</dt><dd><code>a2026b70f8730639f31b54fb80bbd72a5d52e2d799767ff1a680db177d6ecac0</code></dd>
+            </dl>
+            <p class="dl-check">Check in Terminal <code>shasum -a 256 ~/Downloads/Jotarium-1.0.0-mac-x64.dmg</code></p>
           </article>
         </div>
+        <p class="dl-mac-hint">Which Mac? Open the Apple menu and choose About This Mac. An Apple M-series chip means Apple silicon. No Chip row means Intel. The Mac build needs macOS 15 (Sequoia) or later.</p>
+        <div class="install-steps">
+          <article>
+            <h3>On Windows</h3>
+            <ol>
+              <li>Run the .exe. SmartScreen may say "Windows protected your PC".</li>
+              <li>Choose <strong>More info</strong>, then <strong>Run anyway</strong>.</li>
+              <li>Follow the installer. Jotarium opens when it finishes.</li>
+            </ol>
+          </article>
+          <article>
+            <h3>On Mac</h3>
+            <ol>
+              <li>Open the .dmg and drag Jotarium to Applications.</li>
+              <li>Open Jotarium once. macOS blocks it, so choose <strong>Done</strong>.</li>
+              <li>Open <strong>System Settings</strong>, then <strong>Privacy and Security</strong>. Under Security, choose <strong>Open Anyway</strong> for Jotarium, then <strong>Open</strong>.</li>
+            </ol>
+          </article>
+        </div>
+        <p class="dl-upgrade">Upgrading keeps your save. Backups are automatic.</p>
+        <p class="dl-trust">These builds are unsigned. Only continue with a download you trust.</p>
         <!-- release:end -->
         <p class="badge-note">Free to download. No account needed. <a href="guide/">Getting started guide</a></p>
         <div class="support">
