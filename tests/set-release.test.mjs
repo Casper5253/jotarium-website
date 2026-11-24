@@ -63,6 +63,25 @@ test('released mode checks every published URL, then writes the page and version
   assert.match(html, /data-release="released"/);
   for (const file of FILES) assert.match(html, new RegExp(`data-download-url="[^"]*/${file.replace(/[.]/g, '\\.')}"`));
 
+  const cards = html.match(/<article class="dl-card"[\s\S]*?<\/article>/g) ?? [];
+  assert.equal(cards.length, FILES.length);
+  cards.forEach((card, index) => {
+    const file = FILES[index];
+    const command = file.endsWith('.exe')
+      ? `Get-FileHash "$HOME\\Downloads\\${file}" -Algorithm SHA256`
+      : `shasum -a 256 ~/Downloads/${file}`;
+    const checkLabel = file.endsWith('.exe') ? 'Check in PowerShell' : 'Check in Terminal';
+    assert.match(card, /<p class="dl-size">\d+\.\d MB<\/p>/);
+    assert.doesNotMatch(card, /<dt>Version<\/dt>/);
+    const verify = card.match(/<details class="dl-verify">[\s\S]*?<\/details>/g) ?? [];
+    assert.equal(verify.length, 1);
+    assert.match(verify[0], /<summary>Check the download \(optional\)<\/summary>/);
+    assert.match(verify[0], /<p>Compare this fingerprint with your download to make sure the file arrived intact\.<\/p>/);
+    assert.match(verify[0], /<dt>SHA-256<\/dt><dd><code>[0-9a-f]{64}<\/code><\/dd>/);
+    assert.ok(verify[0].includes(`<dt>SHA-256</dt><dd><code>${createHash('sha256').update(ws.bodies.get(file)).digest('hex')}</code></dd>`));
+    assert.ok(verify[0].includes(`<p class="dl-check">${checkLabel} <code>${command}</code></p>`));
+  });
+
   const version = JSON.parse(read(ws.root, 'version.json'));
   assert.deepEqual(version, { latest: VERSION, url: 'https://jotarium.com/#download', notes });
 });

@@ -136,7 +136,7 @@ p { margin: 0 0 1em; }
 .muted { color: var(--text-muted); }
 
 a { color: var(--gold); }
-a:focus-visible, button:focus-visible {
+a:focus-visible, button:focus-visible, summary:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
   border-radius: 4px;
@@ -347,6 +347,7 @@ section.alt { background: var(--rail); border-block: 1px solid var(--line); }
 .download-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   gap: 1rem;
   margin: 1.8rem 0 1rem;
   text-align: left;
@@ -379,7 +380,7 @@ section.alt { background: var(--rail); border-block: 1px solid var(--line); }
   color: var(--gold);
 }
 .dl-pick[hidden] { display: block; visibility: hidden; }
-.dl-note, .dl-file { margin: 0; font-size: .8rem; color: var(--text-muted); overflow-wrap: anywhere; }
+.dl-note, .dl-file, .dl-size { margin: 0; font-size: .8rem; color: var(--text-muted); overflow-wrap: anywhere; }
 .dl-btn { justify-content: center; margin-top: auto; }
 .dl-facts {
   display: grid;
@@ -393,6 +394,10 @@ section.alt { background: var(--rail); border-block: 1px solid var(--line); }
 .dl-facts code, .dl-check code { font-size: .76rem; }
 .dl-check { margin: 0; font-size: .78rem; color: var(--text-muted); }
 .dl-check code { display: block; margin-top: .2rem; color: var(--text); overflow-wrap: anywhere; }
+.dl-verify { margin: 0; font-size: .78rem; color: var(--text-muted); }
+.dl-verify summary { cursor: pointer; color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; }
+.dl-verify[open] summary { margin-bottom: .4rem; }
+.dl-verify .dl-check { margin-top: .6rem; }
 .dl-mac-hint, .dl-upgrade, .dl-trust {
   max-width: 42rem;
   margin-inline: auto;

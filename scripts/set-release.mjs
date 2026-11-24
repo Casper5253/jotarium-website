@@ -140,13 +140,16 @@ ${cards}
 
 function renderReleased(version, assets) {
   const cards = assets.map((asset) => renderCard(asset, `            <p class="dl-file">${asset.file}</p>
+            <p class="dl-size">${asset.size}</p>
             <a class="btn btn-primary dl-btn" href="${asset.url}">${asset.button}</a>
-            <dl class="dl-facts">
-              <dt>Version</dt><dd>${version}</dd>
-              <dt>Size</dt><dd>${asset.size}</dd>
-              <dt>SHA-256</dt><dd><code>${asset.hash}</code></dd>
-            </dl>
-            <p class="dl-check">${asset.checkLabel} <code>${asset.command(asset.file)}</code></p>`, asset)).join('\n');
+            <details class="dl-verify">
+              <summary>Check the download (optional)</summary>
+              <p>Compare this fingerprint with your download to make sure the file arrived intact.</p>
+              <dl class="dl-facts">
+                <dt>SHA-256</dt><dd><code>${asset.hash}</code></dd>
+              </dl>
+              <p class="dl-check">${asset.checkLabel} <code>${asset.command(asset.file)}</code></p>
+            </details>`, asset)).join('\n');
   return `        <h2>Download Jotarium ${version}</h2>
         <p>Free to download and play. Choose the build for your computer.</p>
         <div class="download-grid">
