@@ -215,6 +215,7 @@
 
         <h4 id="claude-code">Claude Code</h4>
         <p>The app's <strong>Copy MCP JSON</strong> gives a complete <code>mcpServers</code> object. If your Claude Code config already has an <code>mcpServers</code> object, add the <code>jotarium</code> entry from the app's copy to it. Do not replace the other entries.</p>
+        <p>On macOS Claude Code keeps this object in <code>~/.claude.json</code>; on Windows it is <code>C:\Users\&lt;you&gt;\.claude.json</code>.</p>
 <pre><code>{
   "mcpServers": {
     "jotarium": {
@@ -230,6 +231,7 @@
 
         <h4 id="codex">Codex</h4>
         <p>Add this to your Codex config file. Use the same <code>command</code>, <code>args</code> and <code>env</code> values the app copied. On Windows, use single-quoted TOML literal strings for paths, or double the backslashes inside double-quoted strings.</p>
+        <p>On macOS Codex keeps it in <code>~/.codex/config.toml</code>; on Windows it is <code>C:\Users\&lt;you&gt;\.codex\config.toml</code>.</p>
 <pre><code>[mcp_servers.jotarium]
 command = '&lt;jotarium-command&gt;'
 args = ['&lt;jotarium-script&gt;', 'mcp']
@@ -240,6 +242,7 @@ JOTARIUM_URL = '&lt;local-url&gt;'</code></pre>
 
         <h4 id="opencode">OpenCode</h4>
         <p>OpenCode uses one <code>command</code> array and an <code>environment</code> object. Map the app's <code>command</code> and <code>args</code> into the array, and move its <code>env</code> values into <code>environment</code>.</p>
+        <p>On macOS OpenCode keeps it in <code>~/.config/opencode/opencode.json</code>; on Windows it is <code>C:\Users\&lt;you&gt;\.config\opencode\opencode.json</code>.</p>
 <pre><code>{
   "mcp": {
     "jotarium": {
